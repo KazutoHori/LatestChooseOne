@@ -6,6 +6,7 @@ import { createMuiTheme, ThemeProvider, withStyles } from '@material-ui/core/sty
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Button from '@material-ui/core/Button';
 import { Bar } from 'react-chartjs-2';
+import axios from "axios";
 
 import HoriChart from './HoriChart';
 
