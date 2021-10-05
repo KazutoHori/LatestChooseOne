@@ -31,7 +31,7 @@ SECRET_KEY = 'k6e0-77(m6!_gohu758y%ac3zd02nq%3+8ubq@ihhf3+t85+$&'
 # DEBUG=1
 DEBUG = int(os.environ.get('DEBUG', default=0))
 
-ALLOWED_HOSTS = ['chooseone-app.herokuapp.com', 'chooseone.app', 'www.chooseone.app', 'localhost', '127.0.0.1', '0.0.0.0']
+ALLOWED_HOSTS = ['latest-chooseone.herokuapp.com', 'chooseone.app', 'www.chooseone.app', 'localhost', '127.0.0.1', '0.0.0.0']
 
 # Application definition
 
