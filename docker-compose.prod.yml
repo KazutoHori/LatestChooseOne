@@ -4,7 +4,7 @@ services:
   web:
     build: .
     # command: python /code/manage.py runserver 0.0.0.0:8000
-    command: gunicorn chooseone_project.wsgi -b 0.0.0.0:8000
+    command: gunicorn latest_chooseone.wsgi -b 0.0.0.0:8000
     environment:
       - "SECRET_KEY=k6e0-77(m6!_gohu758y%ac3zd02nq%3+8ubq@ihhf3+t85+$$&"
       - "DJANGO_SECRET_KEY=k6e0-77(m6!_gohu758y%ac3zd02nq%3+8ubq@ihhf3+t85+$$&"

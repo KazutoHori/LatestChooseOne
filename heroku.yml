@@ -6,4 +6,4 @@ release:
   command:
     - python manage.py collectstatic --noinput
 run:
-  web: gunicorn chooseone_project.wsgi #-b 0.0.0.0:8000
+  web: gunicorn latest_chooseone.wsgi #-b 0.0.0.0:8000
