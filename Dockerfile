@@ -11,17 +11,33 @@
 # コンテナを起動する際に実行されるコマンド
 # ENTRYPOINT [ "yarn", "start" ]
 
-FROM node:14.5.0-alpine
+# FROM node:14.5.0-alpine
 
-RUN mkdir /app
-WORKDIR /app
+# RUN mkdir /app
+# WORKDIR /app
 
-RUN yarn install 
+# RUN yarn install 
 
-COPY package.json package.json
-COPY yarn.lock yarn.lock
-RUN npm install && mv node_modules /node_modules
+# COPY package.json package.json
+# COPY yarn.lock yarn.lock
+# RUN npm install && mv node_modules /node_modules
 
-COPY . .
+# COPY . .
 
-CMD yarn start
+# CMD yarn start
+
+FROM python:3.7
+
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# Set work directory
+WORKDIR /code
+
+# Install dependencies
+COPY Pipfile Pipfile.lock /code/
+RUN pip install pipenv && pipenv install --system
+
+# Copy project
+COPY . /code/

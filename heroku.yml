@@ -3,3 +3,7 @@ build:
     web: Dockerfile
 release:
   image: web
+  command:
+    - python manage.py collectstatic --noinput
+run:
+  web: gunicorn chooseone_project.wsgi #-b 0.0.0.0:8000

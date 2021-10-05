@@ -1,11 +1,14 @@
-version: '3'
+version: '3.7'
 services:
   web:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    build: .
+    # command: python /code/manage.py runserver 0.0.0.0:8000
+    command: gunicorn chooseone_project.wsgi -b 0.0.0.0:8000
+    environment:
+      - "SECRET_KEY=k6e0-77(m6!_gohu758y%ac3zd02nq%3+8ubq@ihhf3+t85+$$&"
+      - DEBUG=1
+      - ENVIRONMENT=development
     volumes:
-     - ./:/usr/src/app
-    command: sh -c "yarn start"
+      - .:/code
     ports:
-     - "3000:3000"
+      - 8000:8000
