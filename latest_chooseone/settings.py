@@ -24,8 +24,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ENVIRONMENT = os.environ.get('ENVIRONMENT', default='production')
 
 ###
-# SECRET_KEY = 'k6e0-77(m6!_gohu758y%ac3zd02nq%3+8ubq@ihhf3+t85+$&'
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = 'k6e0-77(m6!_gohu758y%ac3zd02nq%3+8ubq@ihhf3+t85+$&'
+# SECRET_KEY = os.environ.get('SECRET_KEY')
 
 ###
 # DEBUG=1
