@@ -1,12 +1,13 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { Helmet } from "react-helmet";
 import InfiniteScroll  from "react-infinite-scroller"
+import axios from "axios";
 
 import QuestionList from '../components/QuestionList.js';
 
 // Firebase
 import { getApps, initializeApp } from 'firebase/app';
-import { getFirestore, collection, query, orderBy, limit, startAfter, getDocs } from "firebase/firestore";
+import { getFirestore, collection, query, orderBy, limit, startAfter, getDocs, updateDoc, doc } from "firebase/firestore";
 const firebaseConfig = {
   apiKey: "AIzaSyArjDv3hS4_rw1YyNz-JFXDX1ufF72bqr8",
   authDomain: "chooseone-105a9.firebaseapp.com",
@@ -29,48 +30,73 @@ if (!getApps().length){
 export default function Home () {
 
   const [questions, setQuestions] = useState([]);
-  const [hasMore, setHasMore] = useState(true);
+  const [hasMore, setHasMore] = useState(false);                 // APIに変更前は true
   const [end, setEnd] = useState(null);
   const [last, setLast] = useState(null);
+
+  // const q = query(collection(db, 'questions'), orderBy('created_at', 'desc'), limit(10))
+  // const users = query(collection(db, 'users'))
+  // const promiseD = new Promise(function(resolve, reject) {
+  //   resolve(getDocs(users));
+  // });
+  // promiseD.then((users) => {
+  //   var ques = [];
+  //   users.forEach(user => {
+  //     console.log(user.id);
+  //     // console.log(user.doc);
+  //     const ref = doc(db, "users", user.id);
+  //     updateDoc(ref, {
+  //       uid: user.id
+  //     });
+  //   })
+  // }, []);
 
   useEffect(() => {
     if(questions.length !== 0) return null;
 
-    const q = query(collection(db, 'questions'), orderBy('created_at', 'desc'), limit(10));
-    const promiseD = new Promise(function(resolve, reject) {
-      resolve(getDocs(q));
-    });
-    promiseD.then((qq) => {
-      var ques = [];
-      Promise.all(qq.docs.map(async doc => {
-        ques.push(doc.data());
-        if(ques.length === 10) setLast(doc);
-      })).then(() => {
-        setQuestions(ques);
+    axios.get('http://127.0.0.1:8000/api/questions')
+      .then(response => {
+        setQuestions(response.data)
       })
-    }, []);
+      .catch(error => {
+        console.log(error);
+      })
 
-    if(end === null){
-      setEnd(query(collection(db, 'questions'), orderBy('created_at', 'asc'), limit(1)));
-    }
+    // const q = query(collection(db, 'questions'), orderBy('created_at', 'desc'), limit(10))
+    // const promiseD = new Promise(function(resolve, reject) {
+    //   resolve(getDocs(q));
+    // });
+    // promiseD.then((qq) => {
+    //   var ques = [];
+    //   Promise.all(qq.docs.map(async doc => {
+    //     ques.push(doc.data());
+    //     if(ques.length === 10) setLast(doc);
+    //   })).then(() => {
+    //     setQuestions(ques);
+    //   })
+    // }, []);
+
+    // if(end === null){
+    //   setEnd(query(collection(db, 'questions'), orderBy('created_at', 'asc'), limit(1)));
+    // }
   });
 
   const loadMore = async (page) => {
     var more = true;
     setHasMore(false);
 
-    const next = await getDocs(query(collection(db, 'questions'), orderBy('created_at', 'desc'), startAfter(last), limit(10)));
-    var ques = [];
-    await Promise.all(next.docs.map(async doc => {
-      ques.push(doc.data());
-      if(doc === end || ques.length === 10) {
-        if(doc === end) more = false;
-        setLast(doc);
-      }
-    })).then(() => setQuestions(questions.concat(ques)));
+    // const next = await getDocs(query(collection(db, 'questions'), orderBy('created_at', 'desc'), startAfter(last), limit(10)));
+    // var ques = [];
+    // await Promise.all(next.docs.map(async doc => {
+    //   ques.push(doc.data());
+    //   if(doc === end || ques.length === 10) {
+    //     if(doc === end) more = false;
+    //     setLast(doc);
+    //   }
+    // })).then(() => setQuestions(questions.concat(ques)));
 
-    if(more) setHasMore(true);
-    else setHasMore(false);
+    // if(more) setHasMore(true);
+    // else setHasMore(false);
   }
 
   return (

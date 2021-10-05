@@ -91,19 +91,19 @@ export default function QuestionList (props) {
   useEffect(() => {
     if(uid === null) return null;
 
-    const u = doc(db, 'users', uid);
-    const promise = new Promise(function(resolve) {
-      resolve(getDoc(u));
-    })
-    promise.then((us) => {
-      if(us.exists){
-        var the_user = us.data();
+    // const u = doc(db, 'users', uid);
+    // const promise = new Promise(function(resolve) {
+    //   resolve(getDoc(u));
+    // })
+    // promise.then((us) => {
+    //   if(us.exists){
+    //     var the_user = us.data();
 
-        if(the_user.question_voted.some((q) => q.question === the_question.slug)){
-          setAnswered(true);
-        }
-      }
-    });
+    //     if(the_user.question_voted.some((q) => q.question === the_question.slug)){
+    //       setAnswered(true);
+    //     }
+    //   }
+    // });
   });
 
   const onChoice = async (idx) => {

@@ -21,7 +21,7 @@ import './App.scss';
 
 // Firebase
 import { getApps, initializeApp } from 'firebase/app';
-import { getFirestore, collection, addDoc } from "firebase/firestore";
+import { getFirestore, collection, addDoc, setDoc, doc } from "firebase/firestore";
 const firebaseConfig = {
   apiKey: "AIzaSyArjDv3hS4_rw1YyNz-JFXDX1ufF72bqr8",
   authDomain: "chooseone-105a9.firebaseapp.com",
@@ -60,14 +60,14 @@ export default function Routing () {
         question_voted: [],
         question_created: [],
         question_liked: [],
-        username: '',
+        username: '',        
       });
       resolve(ref);
     });
     promise.then((ref) => {
       localStorage.setItem('chooseoneUid', ref.id);
+      setDoc(doc(db, 'users', ref.id), { uid: ref.id }, { merge: true });  // 追加した 2021/10/05
     }).then(() => {
-      // setDoc(doc(db, 'users', ref.id), { uid: ref.id }, { merge: true });
       setFirstTime(false);
     })
   }

@@ -13,6 +13,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { Helmet } from "react-helmet";
 import { Wave } from "react-animated-text";
 import InfiniteScroll  from "react-infinite-scroller"
+import axios from "axios";
 
 import QuestionList from '../components/QuestionList';
 import ModalDelete from '../components/ModalDelete';
@@ -105,13 +106,18 @@ export default function QuestionDetail (props) {
     if(uid === null || user !== null) return null;
 
     if(user === null){
-      const u = doc(db, 'users', uid);
-      const promise = new Promise(function(resolve) {
-        resolve(getDoc(u));
-      })
-      promise.then((us) => {
-        if(us.exists){
-          var the_user = us.data();
+      // const u = doc(db, 'users', uid);
+      // const promise = new Promise(function(resolve) {
+      //   resolve(getDoc(u));
+      // })
+      // promise.then((us) => {
+        // if(us.exists){var the_user = us.data();}
+
+      axios.get('http://127.0.0.1:8000/api/users')
+        .then(response => {
+          const users = response.data.filter(u => u.uid === uid);
+          const the_user = users[0]
+
           setUser(the_user);
 
           if (the_user.question_liked.includes(the_slug)){
@@ -132,39 +138,48 @@ export default function QuestionDetail (props) {
               if(the_user.question_voted[i].question === the_slug) setYourVote(the_user.question_voted[i].answer)
             }
           }
-        }
-      })
+        })
+        .catch(error => {
+          // window.location.href = '/';
+        })
     }
 
-    const qu = doc(db, 'questions', the_slug);
-    const promiseD = new Promise(function(resolve, reject) {
-      resolve(getDoc(qu));
-    })
-    promiseD.then((doc) => {
-      if(doc.exists){
-        setTheQuestion(doc.data());
-        const ques = query(collection(db, 'questions'), where('category', 'array-contains-any', doc.data().category), orderBy('created_at', 'desc'), limit(10));
-        const promiseDD = new Promise(function(resolve) {
-          resolve(getDocs(ques));
-        })
+    // const qu = doc(db, 'questions', the_slug);
+    // const promiseD = new Promise(function(resolve, reject) {
+    //   resolve(getDoc(qu));
+    // })
+    // promiseD.then((doc) => {
+    //   if(doc.exists){
+    axios.get('http://127.0.0.1:8000/api/questions')
+      .then(response => {
+        const the_que = response.data.filter(q => q.slug === the_slug);
+        if(the_que.length === 0) window.location.href = '/';
+        setTheQuestion(the_que[0]);
+        const ques = response.data.filter(q => q.category.some(cate => the_que[0].category.includes(cate)))
+        setRelatedQues(ques);
+
+        // const ques = query(collection(db, 'questions'), where('category', 'array-contains-any', t.category), orderBy('created_at', 'desc'), limit(10));
+        // const promiseDD = new Promise(function(resolve) {
+        //   resolve(getDocs(ques));
+        // })
         
-        promiseDD.then(qq => {
-          var questionSimilar = [];
-          Promise.all(qq.docs.map(async doc => {
-            questionSimilar.push(doc.data());
-            if(questionSimilar.length === 10) setLast(doc);
-          })).then(() => {
-            setRelatedQues(questionSimilar);
-          });
-        })
-      }else{
-        window.location.href = '/';
-      }
-    });
+        // promiseDD.then(qq => {
+        //   var questionSimilar = [];
+        //   Promise.all(qq.docs.map(async doc => {
+        //     questionSimilar.push(doc.data());
+        //     if(questionSimilar.length === 10) setLast(doc);
+        //   })).then(() => {
+        //     setRelatedQues(questionSimilar);
+        //   });
+        // })
+      })
+      .catch(error => {
+        // window.location.href = '/';
+      })
 
-    if(end === null){
-      setEnd(query(collection(db, 'questions'), orderBy('created_at', 'asc'), limit(1)));
-    }
+    // if(end === null){
+    //   setEnd(query(collection(db, 'questions'), orderBy('created_at', 'asc'), limit(1)));
+    // }
   });
 
   const loadMore = async () => {
