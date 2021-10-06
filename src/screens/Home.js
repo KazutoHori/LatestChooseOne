@@ -54,13 +54,13 @@ export default function Home () {
   useEffect(() => {
     if(questions.length !== 0) return null;
 
-    // axios.get('https://chooseone.app/api/questions')
-    //   .then(response => {
-    //     setQuestions(response.data)
-    //   })
-    //   .catch(error => {
-    //     console.log(error);
-    //   })
+    axios.get('https://chooseone.app/api/questions')
+      .then(response => {
+        setQuestions(response.data)
+      })
+      .catch(error => {
+        console.log(error);
+      })
 
     // const q = query(collection(db, 'questions'), orderBy('created_at', 'desc'), limit(10))
     // const promiseD = new Promise(function(resolve, reject) {
