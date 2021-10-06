@@ -54,7 +54,7 @@ export default function Home () {
   useEffect(() => {
     if(questions.length !== 0) return null;
 
-    axios.get('http://127.0.0.1:8000/api/questions')  // http://127.0.0.1:8000/api/questions https://chooseone.app/api/questions
+    axios.get('https://chooseone.app/api/questions')  // http://127.0.0.1:8000/api/questions https://chooseone.app/api/questions
       .then(response => {
         setQuestions(response.data)
       })

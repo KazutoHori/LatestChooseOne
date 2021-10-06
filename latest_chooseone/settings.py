@@ -20,16 +20,16 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 ###
-ENVIRONMENT='development'
-# ENVIRONMENT = os.environ.get('ENVIRONMENT', default='production')
+# ENVIRONMENT='development'
+ENVIRONMENT = os.environ.get('ENVIRONMENT', default='production')
 
 ###
 SECRET_KEY = 'k6e0-77(m6!_gohu758y%ac3zd02nq%3+8ubq@ihhf3+t85+$&'
 # SECRET_KEY = os.environ.get('SECRET_KEY')
 
 ###
-DEBUG=1
-# DEBUG = int(os.environ.get('DEBUG', default=0))
+# DEBUG=1
+DEBUG = int(os.environ.get('DEBUG', default=0))
 
 ALLOWED_HOSTS = ['latest-chooseone.herokuapp.com', 'chooseone.app', 'www.chooseone.app', 'localhost', '127.0.0.1', '0.0.0.0']
 
@@ -158,24 +158,24 @@ CORS_ORIGIN_WHITELIST = (
     'http://127.0.0.1:8000',
 )
 
-# import socket
-# hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
-# INTERNAL_IPS = [ip[:-1] + "1" for ip in ips]
+import socket
+hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
+INTERNAL_IPS = [ip[:-1] + "1" for ip in ips]
 
-# if ENVIRONMENT == 'production':
-#     SECURE_BROWSER_XSS_FILTER = True
-#     X_FRAME_OPTIONS = 'DENY'
-#     SECURE_SSL_REDIRECT = True
-#     SECURE_HSTS_SECONDS = 3600
-#     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-#     SECURE_HSTS_PRELOAD = True
-#     SECURE_CONTENT_TYPE_NOSNIFF = True
-#     SESSION_COOKIE_SECURE = True
-#     CSRF_COOKIE_SECURE = True
-#     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+if ENVIRONMENT == 'production':
+    SECURE_BROWSER_XSS_FILTER = True
+    X_FRAME_OPTIONS = 'DENY'
+    SECURE_SSL_REDIRECT = True
+    SECURE_HSTS_SECONDS = 3600
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-#     # 自分で足した
-#     SECURE_REFERRER_POLICY='same-origin'
+    # 自分で足した
+    SECURE_REFERRER_POLICY='same-origin'
 
 # Heroku
 # import dj_database_url
