@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import path,include, re_path
 from rest_framework.routers import SimpleRouter
+from django.views.generic import TemplateView
 
 from . import views
 
@@ -15,5 +16,5 @@ urlpatterns = [
     # path('api/<int:pk>', views.DetailAPI.as_view()),
     path('api/questions', views.QuestionsAPI.as_view()),
     path('api/users', views.UsersAPI.as_view()),
-    re_path('.*', views.root),
+    re_path('.*', TemplateView.as_view(template_name='index.html')),
 ]

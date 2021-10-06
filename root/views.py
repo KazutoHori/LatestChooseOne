@@ -1,5 +1,8 @@
 from django.shortcuts import render
 from rest_framework import viewsets, permissions, generics
+from django.views import View
+from django.http import HttpResponse, HttpResponseNotFound
+import os
 
 from .serializers import QuestionSerializer, UserSerializer
 
@@ -24,7 +27,7 @@ class QuestionsAPI(generics.ListAPIView):
   serializer_class = QuestionSerializer
 
 class UsersAPI(generics.ListAPIView):
-  permission_classes = (permissions.IsAuthenticated, )
+  # permission_classes = (permissions.IsAuthenticated, )
   users = []
   user_ref = db.collection(u'users').stream()
   for doc in user_ref:
@@ -40,5 +43,12 @@ class UsersAPI(generics.ListAPIView):
 #   queryset = questions_ref
 #   serializer_class = QuestionSerializer
 
-def root(request):
-  return render(request, 'index.html', {}, content_type='text/html')
+class Assets(View):
+  def get(self, _request, filename):
+    path = os.path.join(os.path.dirname(__file__), 'static', filename)
+
+    if os.path.isfile(path):
+      with open(path, 'rb') as file:
+        return HttpResponse(file.read(), content_type='application/javascript')
+    else:
+      return HttpResponseNotFound()

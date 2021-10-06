@@ -113,35 +113,35 @@ export default function QuestionDetail (props) {
       // promise.then((us) => {
         // if(us.exists){var the_user = us.data();}
 
-      // axios.get('https://chooseone.app/api/users')
-      //   .then(response => {
-      //     const users = response.data.filter(u => u.uid === uid);
-      //     const the_user = users[0]
+      axios.get('http://127.0.0.1:8000/api/users')
+        .then(response => {
+          const users = response.data.filter(u => u.uid === uid);
+          const the_user = users[0]
 
-      //     setUser(the_user);
+          setUser(the_user);
 
-      //     if (the_user.question_liked.includes(the_slug)){
-      //       setLikeIt(true);
-      //     }else{
-      //       setLikeIt(false);
-      //     }
+          if (the_user.question_liked.includes(the_slug)){
+            setLikeIt(true);
+          }else{
+            setLikeIt(false);
+          }
 
-      //     if (the_user.question_created.includes(the_slug)){
-      //       setMadeIt(true);
-      //     }else{
-      //       setMadeIt(false);
-      //     }
+          if (the_user.question_created.includes(the_slug)){
+            setMadeIt(true);
+          }else{
+            setMadeIt(false);
+          }
 
-      //     if(the_user.question_voted.some((q) => q.question === the_slug)){
-      //       setAnswered(true);
-      //       for(var i=0; i<the_user.question_voted.length; i++){
-      //         if(the_user.question_voted[i].question === the_slug) setYourVote(the_user.question_voted[i].answer)
-      //       }
-      //     }
-      //   })
-      //   .catch(error => {
-      //     // window.location.href = '/';
-      //   })
+          if(the_user.question_voted.some((q) => q.question === the_slug)){
+            setAnswered(true);
+            for(var i=0; i<the_user.question_voted.length; i++){
+              if(the_user.question_voted[i].question === the_slug) setYourVote(the_user.question_voted[i].answer)
+            }
+          }
+        })
+        .catch(error => {
+          // window.location.href = '/';
+        })
     }
 
     // const qu = doc(db, 'questions', the_slug);
@@ -150,32 +150,32 @@ export default function QuestionDetail (props) {
     // })
     // promiseD.then((doc) => {
     //   if(doc.exists){
-    // axios.get('https://chooseone.app/api/questions')
-    //   .then(response => {
-    //     const the_que = response.data.filter(q => q.slug === the_slug);
-    //     if(the_que.length === 0) window.location.href = '/';
-    //     setTheQuestion(the_que[0]);
-    //     const ques = response.data.filter(q => q.category.some(cate => the_que[0].category.includes(cate)))
-    //     setRelatedQues(ques);
+    axios.get('http://127.0.0.1:8000/api/questions') // https://chooseone.app/api/questions  http://127.0.0.1:8000/api/questions
+      .then(response => {
+        const the_que = response.data.filter(q => q.slug === the_slug);
+        if(the_que.length === 0) window.location.href = '/';
+        setTheQuestion(the_que[0]);
+        const ques = response.data.filter(q => q.category.some(cate => the_que[0].category.includes(cate)))
+        setRelatedQues(ques);
 
-    //     // const ques = query(collection(db, 'questions'), where('category', 'array-contains-any', t.category), orderBy('created_at', 'desc'), limit(10));
-    //     // const promiseDD = new Promise(function(resolve) {
-    //     //   resolve(getDocs(ques));
-    //     // })
+        // const ques = query(collection(db, 'questions'), where('category', 'array-contains-any', t.category), orderBy('created_at', 'desc'), limit(10));
+        // const promiseDD = new Promise(function(resolve) {
+        //   resolve(getDocs(ques));
+        // })
         
-    //     // promiseDD.then(qq => {
-    //     //   var questionSimilar = [];
-    //     //   Promise.all(qq.docs.map(async doc => {
-    //     //     questionSimilar.push(doc.data());
-    //     //     if(questionSimilar.length === 10) setLast(doc);
-    //     //   })).then(() => {
-    //     //     setRelatedQues(questionSimilar);
-    //     //   });
-    //     // })
-    //   })
-    //   .catch(error => {
-    //     // window.location.href = '/';
-    //   })
+        // promiseDD.then(qq => {
+        //   var questionSimilar = [];
+        //   Promise.all(qq.docs.map(async doc => {
+        //     questionSimilar.push(doc.data());
+        //     if(questionSimilar.length === 10) setLast(doc);
+        //   })).then(() => {
+        //     setRelatedQues(questionSimilar);
+        //   });
+        // })
+      })
+      .catch(error => {
+        // window.location.href = '/';
+      })
 
     // if(end === null){
     //   setEnd(query(collection(db, 'questions'), orderBy('created_at', 'asc'), limit(1)));
