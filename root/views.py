@@ -41,4 +41,4 @@ class UsersAPI(generics.ListAPIView):
 #   serializer_class = QuestionSerializer
 
 def root(request):
-  return render(request, 'index.html', {})
+  return render(request, 'index.html', {}, content_type='text/html')
