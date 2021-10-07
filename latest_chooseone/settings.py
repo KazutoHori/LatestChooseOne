@@ -151,12 +151,13 @@ REST_FRAMEWORK = {
     ]
 }
 
-CORS_ORIGIN_WHITELIST = (
-    'http://localhost:3000',
-    'http://localhost:8000',
-    'http://127.0.0.1:3000',
-    'http://127.0.0.1:8000',
-)
+# CORS_ORIGIN_WHITELIST = (
+#     'http://localhost:3000',
+#     'http://localhost:8000',
+#     'http://127.0.0.1:3000',
+#     'http://127.0.0.1:8000',
+# )
+CORS_ORIGIN_ALLOW_ALL = True
 
 import socket
 hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
@@ -175,9 +176,10 @@ if ENVIRONMENT == 'production':
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
     # 自分で足した
-    SECURE_REFERRER_POLICY='same-origin'
+    # SECURE_REFERRER_POLICY='same-origin'
 
 # Heroku
 # import dj_database_url
 # db_from_env = dj_database_url.config(conn_max_age=500)
 # DATABASES['default'].update(db_from_env)
+
