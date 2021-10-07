@@ -20,18 +20,18 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 ###
-# ENVIRONMENT='development'
-ENVIRONMENT = os.environ.get('ENVIRONMENT', default='production')
+ENVIRONMENT='development'
+# ENVIRONMENT = os.environ.get('ENVIRONMENT', default='production')
 
 ###
 SECRET_KEY = 'k6e0-77(m6!_gohu758y%ac3zd02nq%3+8ubq@ihhf3+t85+$&'
 # SECRET_KEY = os.environ.get('SECRET_KEY')
 
 ###
-# DEBUG=1
-DEBUG = int(os.environ.get('DEBUG', default=0))
+DEBUG=1
+# DEBUG = int(os.environ.get('DEBUG', default=0))
 
-ALLOWED_HOSTS = ['latest-chooseone.herokuapp.com', 'chooseone.app', 'www.chooseone.app', 'localhost', '127.0.0.1', '0.0.0.0']
+ALLOWED_HOSTS = ['*']           # DEBUGが0の時は ALLOWED_HOSTS は慎重になる
 
 # Application definition
 
@@ -186,5 +186,7 @@ if ENVIRONMENT == 'production':
 
 # backend/settings.py
 # Configure Django App for Heroku.
-import django_heroku
-django_heroku.settings(locals())
+
+if not DEBUG:
+    import django_heroku
+    django_heroku.settings(locals())
