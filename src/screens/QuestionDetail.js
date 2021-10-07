@@ -113,7 +113,7 @@ export default function QuestionDetail (props) {
       // promise.then((us) => {
         // if(us.exists){var the_user = us.data();}
 
-      axios.get('https://chooseone.app/api/users')
+      axios.get('/api/users')
         .then(response => {
           const users = response.data.filter(u => u.uid === uid);
           const the_user = users[0]
@@ -150,7 +150,7 @@ export default function QuestionDetail (props) {
     // })
     // promiseD.then((doc) => {
     //   if(doc.exists){
-    axios.get('https://chooseone.app/api/questions') // https://chooseone.app/api/questions  http://127.0.0.1:8000/api/questions
+    axios.get('/api/questions')
       .then(response => {
         const the_que = response.data.filter(q => q.slug === the_slug);
         if(the_que.length === 0) window.location.href = '/';
