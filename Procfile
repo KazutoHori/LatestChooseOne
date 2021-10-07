@@ -1,0 +1,1 @@
+web: gunicorn latest_chooseone.wsgi --log-file -

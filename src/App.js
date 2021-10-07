@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { makeStyles, createStyles } from '@material-ui/core';
+import axios from 'axios';
 
 import Home from './screens/Home';
 import About from './screens/About';
@@ -58,3 +59,6 @@ const useStyles = makeStyles(() => createStyles({
     }
   }
 }));
+
+axios.defaults.xsrfCookieName = 'csrftoken'
+axios.defaults.xsrfHeaderName = 'X-CSRFToken'

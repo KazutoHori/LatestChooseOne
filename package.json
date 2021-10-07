@@ -1,5 +1,6 @@
 {
-  "name": "new_chooseone",
+  "name": "latest_chooseone",
+  "homepage": ".",
   "version": "0.1.0",
   "private": true,
   "proxy": "http://127.0.0.1:8000",
@@ -25,6 +26,10 @@
     "react-tiny-fab": "^4.0.3",
     "sass": "^1.38.0",
     "web-vitals": "^1.0.1"
+  },
+  "engines": {
+    "node": "^16.3.0",
+    "npm": "7.17.0"
   },
   "scripts": {
     "start": "react-scripts start",
