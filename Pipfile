@@ -12,6 +12,7 @@ firebase-admin = "*"
 whitenoise = "==5.0.1"
 gunicorn = "==20.0.4"
 django-heroku = "*"
+django-brotli = "*"
 
 [requires]
 python_version = "3.8"

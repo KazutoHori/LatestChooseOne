@@ -34,23 +34,6 @@ export default function Home () {
   const [end, setEnd] = useState(null);
   const [last, setLast] = useState(null);
 
-  // const q = query(collection(db, 'questions'), orderBy('created_at', 'desc'), limit(10))
-  // const users = query(collection(db, 'users'))
-  // const promiseD = new Promise(function(resolve, reject) {
-  //   resolve(getDocs(users));
-  // });
-  // promiseD.then((users) => {
-  //   var ques = [];
-  //   users.forEach(user => {
-  //     console.log(user.id);
-  //     // console.log(user.doc);
-  //     const ref = doc(db, "users", user.id);
-  //     updateDoc(ref, {
-  //       uid: user.id
-  //     });
-  //   })
-  // }, []);
-
   useEffect(() => {
     if(questions.length !== 0) return null;
 
@@ -61,24 +44,6 @@ export default function Home () {
       .catch(error => {
         console.log(error);
       })
-
-    // const q = query(collection(db, 'questions'), orderBy('created_at', 'desc'), limit(10))
-    // const promiseD = new Promise(function(resolve, reject) {
-    //   resolve(getDocs(q));
-    // });
-    // promiseD.then((qq) => {
-    //   var ques = [];
-    //   Promise.all(qq.docs.map(async doc => {
-    //     ques.push(doc.data());
-    //     if(ques.length === 10) setLast(doc);
-    //   })).then(() => {
-    //     setQuestions(ques);
-    //   })
-    // }, []);
-
-    // if(end === null){
-    //   setEnd(query(collection(db, 'questions'), orderBy('created_at', 'asc'), limit(1)));
-    // }
   });
 
   const loadMore = async (page) => {

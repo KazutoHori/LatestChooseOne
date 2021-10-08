@@ -1,7 +1,8 @@
 import React, { useEffect, useState, Fragment } from 'react';
-import QuestionList from '../components/QuestionList.js';
 import { makeStyles, createStyles } from '@material-ui/core';
 import { Helmet } from "react-helmet";
+
+import QuestionList from '../components/QuestionList.js';
 
 // Firebase
 import { getApps, initializeApp } from 'firebase/app';
